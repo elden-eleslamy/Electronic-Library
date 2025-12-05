@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>تحميل تطبيق — الدين الإسلامي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <meta name="theme-color" content="#120514">
+
+  <style>
+    /* ----- Mars UI palette (match previous pages) ----- */
+    :root{
+      --bg-1: #07040a;
+      --bg-2: #120514;
+      --card: rgba(255,255,255,0.02);
+      --muted: #bfc3cf;
+      --mars: #ff6b3d;
+      --mars-dark: #c1440e;
+      --mars-light: rgba(255,107,61,0.10);
+      --accent-text: #0b0710;
+      --radius:16px;
+      --shadow: 0 12px 40px rgba(2,6,23,0.6);
+      --glass-border: rgba(255,255,255,0.03);
+    }
+
+    *{box-sizing:border-box;font-family:'Cairo',sans-serif;-webkit-font-smoothing:antialiased}
+    html,body{height:100%;margin:0;background:radial-gradient(1200px 600px at 10% 10%, rgba(255,91,48,0.03), transparent), linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--muted);line-height:1.6}
+    a{color:var(--mars);text-decoration:none}
+    img{max-width:100%;height:auto;display:block}
+
+    /* header */
+    header{position:sticky;top:0;z-index:60;padding:12px 20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));backdrop-filter: blur(6px);border-bottom:1px solid rgba(255,255,255,0.02)}
+    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:12px;box-shadow:0 0 20px rgba(255,107,61,0.12);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .site-title{color:#fff;font-weight:700;font-size:18px}
+    .site-sub{color:var(--muted);font-size:13px}
+
+    /* page layout */
+    main{max-width:1100px;margin:28px auto;padding:0 20px;z-index:2}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:26px;align-items:start}
+    @media (max-width:980px){ .grid{grid-template-columns:1fr} }
+
+    /* left column (hero + details) */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:20px;box-shadow:var(--shadow);border:1px solid var(--glass-border)}
+    .hero{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+    .app-preview{width:180px;height:180px;border-radius:18px;flex:0 0 180px;background:linear-gradient(180deg,#1a0b0f,#2a0f12);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(193,65,14,0.06)}
+    .app-preview img{width:140px;height:140px;object-fit:cover;border-radius:14px}
+    .hero h1{margin:0;font-size:22px;color:#fff}
+    .hero p{margin:6px 0;color:var(--muted)}
+
+    /* download button */
+    .download-area{display:flex;gap:12px;align-items:center;margin-top:12px}
+    .btn-download{
+      display:inline-flex;align-items:center;gap:12px;padding:12px 18px;border-radius:12px;font-weight:800;font-size:18px;background:linear-gradient(90deg,var(--mars),#ffb86b);color:var(--accent-text);border:0;cursor:pointer;box-shadow:0 18px 50px rgba(255,107,61,0.12);text-decoration:none;
+    }
+    .btn-secondary{padding:10px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);font-weight:700}
+
+    .file-info{font-size:13px;color:rgba(255,255,255,0.8);margin-left:6px}
+
+    /* features list */
+    .features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+    @media (max-width:700px){ .features{grid-template-columns:1fr} }
+    .feature{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);display:flex;gap:10px;align-items:center}
+    .feature i{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;color:var(--mars);min-width:44px;text-align:center}
+
+    /* right column (sidebar) */
+    .sidebar .card{position:sticky;top:92px}
+    .meta-list{display:flex;flex-direction:column;gap:10px}
+    .meta-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
+
+    /* screenshots carousel */
+    .screens{display:flex;gap:10px;overflow:auto;padding:6px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border-radius:10px}
+    .screens img{width:160px;height:320px;object-fit:cover;border-radius:12px;flex:0 0 auto}
+
+    /* changelog / privacy */
+    .section-title{display:inline-block;background:var(--mars-light);color:var(--mars-dark);padding:6px 10px;border-radius:10px;font-weight:700;margin-bottom:10px}
+    .muted-block{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
+
+    /* footer small note */
+    .note{font-size:13px;color:rgba(255,255,255,0.6);margin-top:12px}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <img src="https://www.appcreator24.com/srv/imgs/gen/3122147_ico.png?v=31" alt="شعار" style="width:46px;height:46px;object-fit:cover;border-radius:10px">
+        </div>
+        <div>
+          <div class="site-title">الدين الإسلامي</div>
+          <div class="site-sub">تحميل التطبيق — ملف APK مباشر</div>
+        </div>
+      </div>
+    </div>
+  </header>
+<center>
+  <main>
+    <div class="grid">
+      <!-- left column -->
+      <div>
+        <div class="card hero" role="region" aria-label="مقدمة تحميل التطبيق">
+          <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+            <div class="app-preview" aria-hidden="true">
+              <img src="logo.png" alt="أيقونة التطبيق" id="appIcon">
+            </div>
+            <div style="flex:1;min-width:220px">
+              <h1 id="appName">تطبيق الدين الإسلامي</h1>
+             
+
+              <div class="download-area" aria-hidden="false">
+                <!-- main download link (APK) -->
+                <a class="btn-download" 
+     href="https://apk.e-droid.net/apk/app3122147-rjpy2m.apk?v=31" 
+     download>
+    <i class="fa-solid fa-arrow-down"></i>
+    حمل التطبيق
+  </a>
+<br><br><br><br><br><br><br><br>
+
+                <div class="file-info" id="fileInfo">الحجم: 31.4MB · الإصدار: 1.0.2</div>
+              </div>
+            </div>
+          </div>
+
+         
+        </div>
+<br><br>
+         <!-- right column (sidebar) -->
+      <aside class="sidebar">
+        <div class="card">
+          <div class="section-title">معلومات الملف</div>
+          <div class="meta-list">
+            <div class="meta-item"><div>الإصدار</div><div id="metaVersion">1.0.2</div></div>
+            <div class="meta-item"><div>الحجم</div><div id="metaSize">31.4MB</div></div>
+            <div class="meta-item"><div>التوافق</div><div>Android 6.0+</div></div>
+            <div class="meta-item"><div>التوقيع</div><div id="metaHash">—</div></div>
+          </div>
+
+           <p id="appShort">محتوى إيماني، مكتبة، فيديوهات، مواقيت صلاة دقيقة — نسختك المحمولة من محتوى «الدين الإسلامي».</p>
+
+        
+      </aside>
+        
+      </div>
+
+     
+    </div>
+  </main>
+
+  <footer style="text-align:center;padding:18px 0;color:var(--muted)"><span id="year"></span> © جميع الحقوق محفوظة لموقع «الدين الإسلامي»</footer>
+
+  <script>
+    // ===== CONFIG =====
+    // ضع هنا رابط ملف الـ APK الفعلي أو اترك app-release.apk لو في نفس المجلد
+    const DOWNLOAD_URL = "app-release.apk"; // <-- غَيّر المسار حسب مكان ملفك
+
+    // ===== helpers =====
+    const downloadBtn = document.getElementById('downloadBtn');
+    const fileInfoEl = document.getElementById('fileInfo');
+    const metaSize = document.getElementById('metaSize');
+    const metaHash = document.getElementById('metaHash');
+    const metaVersion = document.getElementById('metaVersion');
+    const yearEl = document.getElementById('year');
+
+    yearEl.textContent = new Date().getFullYear();
+    downloadBtn.href = DOWNLOAD_URL;
+
+    // Try to fetch HEAD to get Content-Length (may be blocked by CORS)
+    async function fetchFileMeta(url){
+      try {
+        const resp = await fetch(url, { method: 'HEAD' });
+        if (!resp.ok) throw new Error('no head');
+        const len = resp.headers.get('content-length');
+        const type = resp.headers.get('content-type');
+        if (len) {
+          const sizeMB = (parseInt(len,10) / (1024*1024));
+          const pretty = sizeMB < 1 ? (sizeMB*1024).toFixed(1) + ' KB' : sizeMB.toFixed(1) + ' MB';
+          metaSize.textContent = pretty;
+          fileInfoEl.textContent = `الحجم: ${pretty} · الإصدار: ${metaVersion.textContent}`;
+        } else {
+          metaSize.textContent = 'غير متوفر';
+          fileInfoEl.textContent = `الحجم: — · الإصدار: ${metaVersion.textContent}`;
+        }
+
+        // If server provides ETag or some hash header, show as signature
+        const etag = resp.headers.get('etag');
+        if (etag) metaHash.textContent = etag;
+      } catch (err) {
+        // fallback message (normal case if server blocks HEAD by CORS)
+        metaSize.textContent = 'غير متاح (تحقق من السيرفر)';
+        fileInfoEl.textContent = `الحجم: — · الإصدار: ${metaVersion.textContent}`;
+      }
+    }
+
+    // Call metadata fetch
+    fetchFileMeta(DOWNLOAD_URL);
+
+    // Install guide dialog (simple)
+    document.getElementById('installGuideBtn').addEventListener('click', () => {
+      const msg = `
+        خطوات تثبيت ملف APK:
+        1) حمّل الملف بالضغط على زر "تحميل APK".
+        2) افتح ملف الـ APK من مدير الملفات.
+        3) إذا ظهرت رسالة منع التثبيت من مصادر غير معروفة: ادخل إلى الإعدادات وفعّل السماح لمتصفحك/مدير الملفات.
+        4) أكمل خطوات التثبيت.
+        (تأكد من تحميل الملف من مصدر موثوق).
+      `;
+      alert(msg);
+    });
+
+    // Optional: analytics-like click tracking (local only)
+    downloadBtn.addEventListener('click', (e) => {
+      // mark click time in localStorage (simple)
+      try {
+        const clicks = JSON.parse(localStorage.getItem('app_download_clicks') || '[]');
+        clicks.push({ at: new Date().toISOString(), url: DOWNLOAD_URL });
+        localStorage.setItem('app_download_clicks', JSON.stringify(clicks.slice(-50)));
+      } catch(e){}
+      // note: actual download is handled by browser via href + download attribute
+    });
+
+    // enhance accessibility: keyboard enter triggers download
+    downloadBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') downloadBtn.click();
+    });
+
+  </script>
+</body>
+</html>
